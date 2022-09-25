@@ -18,13 +18,18 @@ def draw_plot():
     
     plt.plot(year, level)
     # Create second line of best fit
-
-
+    sealevel2000 = sealevel[sealevel['Year']>1999]
+    
+    line2 = linregress(sealevel2000['Year'], sealevel2000['CSIRO Adjusted Sea Level'])
+    year2 = np.arange(sealevel2000['Year'].min(), 2050, 1)
+    level2 = year2*line2.slope + line2.intercept
+    
+    plt.plot(year2, level2)
     # Add labels and title
-
-    plt.show()
+    plt.xlabel("Year")
+    plt.ylabel("Sea Level (inches)")
+    plt.title("Rise in Sea Level")
+    
     # Save plot and return data for testing (DO NOT MODIFY)
     plt.savefig('sea_level_plot.png')
     return plt.gca()
-
-draw_plot()
